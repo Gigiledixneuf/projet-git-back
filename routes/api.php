@@ -34,6 +34,7 @@ Route::apiResource('/articles', ArticleController::class);
 Route::apiResource('/categories', CategoryController::class);
 Route::apiResource('/comments', CommentController::class);
 Route::apiResource('/newsletter' , NewsletterController::class);
+Route::get('/article_video/{categoryName}', [ArticleController::class, 'video']);
 
 Route::post('/login', function (Request $request) {
     $request->validate([

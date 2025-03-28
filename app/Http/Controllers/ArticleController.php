@@ -12,6 +12,16 @@ use Illuminate\Support\Str;
 class ArticleController extends Controller
 {
 
+
+    public function video(string $article )
+    {
+     
+        $articles = Article::whereHas('categories', function($query) use ($article) {
+            $query->where('name', $article);
+        })->get();
+
+        return response()->json($articles);
+    }
     public function index()
     {
         //return ArticleResource::collection(Article::paginate(1));
