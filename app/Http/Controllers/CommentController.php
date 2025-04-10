@@ -41,14 +41,14 @@ class CommentController extends Controller
         }
     }
 
-  
+
     public function show(string $id)
     {
         // Récupérer les commentaires de l'article avec l'ID spécifié avec pagination
         $comments = Comment::with('user')
-            ->where('article_id', $id)
-            ->paginate(10); 
-    
+            ->where('article_id', $id)->orderBy('created_at', 'desc')
+            ->paginate(10);
+
         // Retourner la collection des commentaires sous forme de CommentResource avec pagination
         return CommentResource::collection($comments);
     }
