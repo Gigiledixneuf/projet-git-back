@@ -15,7 +15,11 @@ class ArticleController extends Controller
     public function index()
     {
         //return ArticleResource::collection(Article::paginate(1));
-        return ArticleResource::collection(Article::with(['user', 'likes'])->paginate(9));
+        return ArticleResource::collection(
+            Article::with(['user', 'likes'])
+                ->orderBy('created_at', 'desc') // Trier par date de création décroissante
+                ->paginate(9)
+        );
 
         // return Article::all();
     }
@@ -64,8 +68,8 @@ class ArticleController extends Controller
             // Verifier si l'utilisateur connecté est l'auteur de l'article
             if (auth()->user()->id !== $article->user_id) {
                 return response()->json(['error' => 'Unauthorized'], 403);
-            }else{
-                
+            } else {
+
                 // Modifier l'article
                 $article->update([
                     "title" => $request->title,
@@ -74,12 +78,12 @@ class ArticleController extends Controller
                     "user_id" => auth()->user()->id,
                     "content" => $request->content,
                 ]);
-    
+
                 // Detache les anciennes catégories et tags
                 if ($request->has('categories')) {
                     $article->categories()->sync($request->categories); // Utilisation de sync pour mettre à jour les catégories
                 }
-    
+
                 if ($request->has('tags')) {
                     $article->tags()->sync($request->tags); // Utilisation de sync() pour mettre à jour les tags
                 }
