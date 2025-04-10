@@ -29,6 +29,8 @@ Route::middleware([RejectUrlParameters::class])->group(function () {
 
     // Page d’accueil ou liste des articles
     Route::get('/articles', [ArticleController::class, 'index']);
+    Route::get('/getlatesttreearticles', [ArticleController::class, 'getLatestTreeArticles']);
+    Route::get('/getlatestfivearticles', [ArticleController::class, 'getLatestFiveArticles']);
 
 
     // Affichage d’un article individuel

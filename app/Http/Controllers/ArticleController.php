@@ -116,7 +116,7 @@ class ArticleController extends Controller
         }
     }
 
-    public function getLatestTreeArticle(Article $article)
+    public function getLatestTreeArticles(Article $article)
     {
         try {
             $article = Article::latest()->take(3)->get();
@@ -128,4 +128,16 @@ class ArticleController extends Controller
             return response()->json(['error' => $message->getMessage()], 500);
         }
     }
+
+    public function getLatestFiveArticles()
+{
+    $articles = Article::whereHas('categories', function ($query) {
+        $query->where('name', 'actualite');
+    })->latest()->take(5)->get();
+
+    return response()->json([
+        'data' => ArticleResource::collection($articles),
+    ]);
+}
+
 }
