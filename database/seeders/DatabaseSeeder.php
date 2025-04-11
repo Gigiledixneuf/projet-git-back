@@ -20,23 +20,23 @@ class DatabaseSeeder extends Seeder
     {
 
 
-        User::factory(10)->create();
+        // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'gigi',
-            'email' => 'ggig19@gmail.com',
+            'name' => 'test',
+            'email' => 'email@gmail.com',
             'password' => Hash::make('password'),
         ]);
-        User::factory(20)->create();
-        
-        $this->call(CategorySeeder::class);
+        // User::factory(20)->create();
 
-        $this->call(TagsSeeder::class);
+        // $this->call(CategorySeeder::class);
+
+        // $this->call(TagsSeeder::class);
 
 
-        $this->call(ArcticleSeeder::class);
+        // $this->call(ArcticleSeeder::class);
 
-        $this->call(CommentSeeder::class);
+        // $this->call(CommentSeeder::class);
 
 
     }

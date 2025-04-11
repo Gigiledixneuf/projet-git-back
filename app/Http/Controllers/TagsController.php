@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Tags;
 use Illuminate\Http\Request;
+use App\Http\Resources\ArticleResource;
+
 
 class TagsController extends Controller
 {
@@ -52,10 +54,9 @@ class TagsController extends Controller
             ], 404);
         }
 
-        $articles = $tag->articles;
-        return response()->json([
-            "data" => $articles
-        ]);
+        $articles = $tag->articles()->with(['user', 'likes'])->get();;
+
+        return ArticleResource::collection($articles);
     }
 
 
