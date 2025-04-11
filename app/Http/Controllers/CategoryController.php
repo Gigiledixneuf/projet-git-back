@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Resources\ArticleResource;
+
+
 
 class CategoryController extends Controller
 {
@@ -48,13 +51,10 @@ class CategoryController extends Controller
             ], 404);
         }
 
-        $articles = $category->articles;
-        return response()->json([
-            "data" => $articles
-        ]);
-            // 'data' =>json($articles);
+        // Charger les articles de cette catégorie avec leurs relations
+        $articles = $category->articles()->with(['user', 'likes'])->get();
 
-        // return response()->json($articles);
+        return ArticleResource::collection($articles);
     }
 
     /**
