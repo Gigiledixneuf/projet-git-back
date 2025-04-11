@@ -55,6 +55,7 @@ Route::middleware([RejectUrlParameters::class])->group(function () {
 
         // Les autres routes (store, update, destroy, etc.) sont protégées
         Route::apiResource('/articles', ArticleController::class)->except(['index', 'show']);
+        Route::get('/myarticles',[ArticleController::class, 'myArticles'] );
         Route::apiResource('/comments', CommentController::class)->except(['show']);
     });
 
