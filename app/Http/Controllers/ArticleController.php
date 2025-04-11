@@ -130,14 +130,22 @@ class ArticleController extends Controller
     }
 
     public function getLatestFiveArticles()
-{
-    $articles = Article::whereHas('categories', function ($query) {
-        $query->where('name', 'actualite');
-    })->latest()->take(5)->get();
+    {
+        $articles = Article::whereHas('categories', function ($query) {
+            $query->where('name', 'actualite');
+        })->latest()->take(5)->get();
 
-    return response()->json([
-        'data' => ArticleResource::collection($articles),
-    ]);
-}
+        return response()->json([
+            'data' => ArticleResource::collection($articles),
+        ]);
+    }
 
+    public function myArticles(Article $article)
+    {
+        $user = auth()->user();
+        $article =$user->articles;
+        return response()->json([
+            'data' => ArticleResource::collection($article),
+        ]);
+    }
 }
