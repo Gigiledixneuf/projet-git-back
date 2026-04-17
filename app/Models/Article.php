@@ -5,6 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @OA\Schema(
+ *     schema="ArticleResource",
+ *     type="object",
+ *     @OA\Property(property="id", type="integer", format="int64"),
+ *     @OA\Property(property="title", type="string"),
+ *     @OA\Property(property="content", type="string"),
+ *     @OA\Property(property="user", ref="#/components/schemas/UserResource"),
+ *    
+ * )
+ */
+
 class Article extends Model
 {
     use HasFactory;

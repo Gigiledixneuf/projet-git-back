@@ -12,6 +12,39 @@ use Illuminate\Support\Str;
 class ArticleController extends Controller
 {
 
+    /**
+ * @OA\Get(
+ *     path="/articles",
+ *     tags={"Articles"},
+ *     summary="Retrieve a list of articles",
+ *     description="Returns a paginated list of articles with user and likes information.",
+ *     @OA\Response(
+ *         response=200,
+ *         description="A list of articles",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="data",
+ *                 type="array",
+ *                 @OA\Items(ref="#/components/schemas/ArticleResource")
+ *             ),
+ *             @OA\Property(
+ *                 property="meta",
+ *                 type="object",
+ *                 @OA\Property(property="current_page", type="integer"),
+ *                 @OA\Property(property="last_page", type="integer"),
+ *                 @OA\Property(property="per_page", type="integer"),
+ *                 @OA\Property(property="total", type="integer"),
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Not Found"
+ *     )
+ * )
+ */
+
     public function index()
     {
         //return ArticleResource::collection(Article::paginate(1));
